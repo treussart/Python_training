@@ -52,7 +52,6 @@ def _(value):
 
 @test.register(list)
 @power_trim(x)
-@power_lower
 @power_space
 def _(value):
     # Must return a string
@@ -61,4 +60,4 @@ def _(value):
 
 print(test("Test_Value"))
 print(test(666))
-print(test(['e', '3', 'rtrtt']))
+print(test(['e', '3', 'Rtt']))
