@@ -1,13 +1,15 @@
-from functools import singledispatch
+from functools import singledispatch, wraps
 
 
 def power_lower(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs).lower()
     return wrapper
 
 
 def power_space(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         return ' '.join(list(func(*args, **kwargs)))
     return wrapper
@@ -15,6 +17,7 @@ def power_space(func):
 
 def power_trim(nbr):
     def power_trim_func(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)[:nbr]
         return wrapper
@@ -55,4 +58,9 @@ def _(value):
 print(test("Test_Value"))
 print(test(666))
 print(test(['e', '3', 'Rtt']))
-print(test(4.8))
+# print(test(4.8))
+
+# wrap
+print(test.__name__)
+# without :
+# return : wrapper
