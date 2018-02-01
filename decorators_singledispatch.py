@@ -5,21 +5,21 @@ x = 6
 
 
 def power_lower(func):
-    def wrapper(value):
-        return func(value).lower()
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs).lower()
     return wrapper
 
 
 def power_space(func):
-    def wrapper(value):
-        return ' '.join(list(func(value)))
+    def wrapper(*args, **kwargs):
+        return ' '.join(list(func(*args, **kwargs)))
     return wrapper
 
 
 def power_trim(nbr):
     def power_trim_func(func):
-        def wrapper(value):
-            return func(value)[:nbr]
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)[:nbr]
         return wrapper
     return power_trim_func
 
