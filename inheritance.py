@@ -95,20 +95,32 @@ class Second(First):
 
 
 class Third(First):
-    # Cannot inhertited of Second
+    # Cannot inhertited of Second (because of Fourth)
     def __init__(self):
         super(First, self).__init__()
         print("third")
 
 
-class Fourth(Second, Third):
+class Fourth(Third, Second):
     def __init__(self):
         super(Second, self).__init__()
         super(Third, self).__init__()
         print("fourth")
 
 
+class Extra(Fourth): # Same as: class Extra(Fourth, Third, Second, First)
+    def __init__(self):
+        super(Fourth, self).__init__()
+        print("extra")
+
+
 print(First())
+print(First.__mro__)
 print(Second())
+print(Second.__mro__)
 print(Third())
+print(Third.__mro__)
 print(Fourth())
+print(Fourth.__mro__)
+print(Extra())
+print(Extra.__mro__)
