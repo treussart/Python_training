@@ -1,5 +1,9 @@
 
 class MetaPeople(type):
+    def __call__(self, *args, **kwargs):
+        print("Call Class {}".format(self.__name__))
+        return type.__call__(self, *args, **kwargs)
+
     def __new__(cls, *args, **kwargs):
         print("Created Class {}".format(cls.__name__))
         # return super(MetaPeople, cls).__new__(cls, *args, **kwargs)
