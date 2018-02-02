@@ -2,6 +2,7 @@
 class MetaPeople(type):
     def __new__(cls, *args, **kwargs):
         print("Created Class {}".format(cls.__name__))
+        # return super(MetaPeople, cls).__new__(cls, *args, **kwargs)
         return type.__new__(cls, *args, **kwargs)
 
     def __init__(self, *args, **kwargs):
@@ -12,6 +13,7 @@ class MetaPeople(type):
 class Dad(metaclass=MetaPeople):
     def __new__(cls, username):
         print("Created Class {0}, username: {1}".format(cls.__name__, username))
+        # return super(Dad, cls).__new__(cls)
         return object.__new__(cls)
 
     def __init__(self, username):
