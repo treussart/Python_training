@@ -50,11 +50,7 @@ class Mum(People):
 class Androgyne(Dad, Mum):
     def __init__(self, **kwargs):
         print("Androgyne Initialized Class {}".format(self.__class__.__name__))
-        #self.skills = list()
-        # super().__init__(**kwargs)
         super(Androgyne, self).__init__(**kwargs)
-        #Dad.__init__(self, username)
-        #Mum.__init__(self, username, self.skills)
 
     def __str__(self):
         return self.username + str(self.skills)
