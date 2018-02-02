@@ -90,27 +90,26 @@ class First:
 
 class Second(First):
     def __init__(self):
-        super(First, self).__init__()
+        super(Second, self).__init__()
         print("second")
 
 
 class Third(First):
     # Cannot inhertited of Second (because of Fourth)
     def __init__(self):
-        super(First, self).__init__()
+        super(Third, self).__init__()
         print("third")
 
 
 class Fourth(Third, Second):
     def __init__(self):
-        super(Second, self).__init__()
-        super(Third, self).__init__()
+        super(Fourth, self).__init__()
         print("fourth")
 
 
 class Extra(Fourth): # Same as: class Extra(Fourth, Third, Second, First)
     def __init__(self):
-        super(Fourth, self).__init__()
+        super(Extra, self).__init__()
         print("extra")
 
 
@@ -124,3 +123,35 @@ print(Fourth())
 print(Fourth.__mro__)
 print(Extra())
 print(Extra.__mro__)
+print()
+
+
+class First1(object):
+    def __init__(self, called_by=''):
+        print("first prologue, called_by: %s" % called_by)
+        super().__init__()
+        print("first epilogue, called_by: %s" % called_by)
+
+
+class Second2(First1):
+    def __init__(self, called_by=''):
+        print("second prologue, called_by: %s" % called_by)
+        super(Second2, self).__init__(called_by='Second'+called_by)
+        print("second epilogue, called_by: %s" % called_by)
+
+
+class Third3(First1):
+    def __init__(self, called_by=''):
+        print("third prologue, called_by: %s" % called_by)
+        super(Third3, self).__init__(called_by='Third'+called_by)
+        print("third epilogue, called_by: %s" % called_by)
+
+
+class Fourth4(Second2, Third3):
+    def __init__(self):
+        super(Fourth4, self).__init__(called_by='Fourth')
+        print("that's it")
+
+
+# called_by='Third' + called_by
+Fourth4()
