@@ -1,10 +1,9 @@
 class People:
-    def __new__(cls):
+    def __new__(cls, **kwargs):
         print("People Created Class {0}".format(cls.__name__))
-        # return super(Dad, cls).__new__(cls)
-        return object.__new__(cls)
+        return super(People, cls).__new__(cls)
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         print("Dad Initialized Class {}".format(self.__class__.__name__))
 
     def __str__(self):
@@ -16,30 +15,29 @@ class People:
 
 
 class Dad(People):
-    def __new__(cls, username):
-        print("Dad Created Class {0}, username: {1}".format(cls.__name__, username))
-        # return super(Dad, cls).__new__(cls)
-        return object.__new__(cls)
+    def __new__(cls, **kwargs):
+        print("Dad Created Class {0}, username: {1}".format(cls.__name__, kwargs.get('username')))
+        return super(Dad, cls).__new__(cls)
 
-    def __init__(self, username):
+    def __init__(self, **kwargs):
         print("Dad Initialized Class {}".format(self.__class__.__name__))
-        super(People, self).__init__()
-        self.username = username
+        super(Dad, self).__init__()
+        self.username = kwargs.get('username')
 
     def __str__(self):
         return self.username
 
 
 class Mum(People):
-    def __new__(cls, username, skills):
-        print("Mum Created Class {0}, username: {1}".format(cls.__name__, username))
-        return object.__new__(cls)
+    def __new__(cls, **kwargs):
+        print("Mum Created Class {0}, username: {1}".format(cls.__name__, kwargs.get('username')))
+        return super(Mum, cls).__new__(cls)
 
-    def __init__(self, username, skills):
+    def __init__(self, **kwargs):
         print("Mum Initialized Class {}".format(self.__class__.__name__))
-        super(People, self).__init__()
-        self.username = username
-        self.skills = skills
+        super(Mum, self).__init__()
+        self.username = kwargs.get('username')
+        self.skills = kwargs.get('skills')
 
     def __str__(self):
         return self.username + str(self.skills)
@@ -50,29 +48,27 @@ class Mum(People):
 
 
 class Androgyne(Dad, Mum):
-    def __new__(cls, username):
-        print("Androgyne Created Class {0}, username: {1}".format(cls.__name__, username))
-        return object.__new__(cls)
-
-    def __init__(self, username):
+    def __init__(self, **kwargs):
         print("Androgyne Initialized Class {}".format(self.__class__.__name__))
-        skills = list()
-        Dad.__init__(self, username)
-        Mum.__init__(self, username, skills)
+        #self.skills = list()
+        # super().__init__(**kwargs)
+        super(Androgyne, self).__init__(**kwargs)
+        #Dad.__init__(self, username)
+        #Mum.__init__(self, username, self.skills)
 
     def __str__(self):
         return self.username + str(self.skills)
 
 
-dad = Dad("daddy")
+dad = Dad(username="daddy")
 dad.run("OK")
 print(dad)
 print()
-mum = Mum("mummy", ['play', 'humor'])
+mum = Mum(username="mummy", skills=['play', 'humor'])
 mum.run("OK")
 print(mum)
 print()
-androgyne = Androgyne("andy")
+androgyne = Androgyne(username="andy", skills=list())
 print(androgyne)
 # Multiple inheritance
 androgyne.run("OK")
