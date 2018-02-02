@@ -23,6 +23,7 @@ class Dad(People):
 
     def __init__(self, username):
         print("Dad Initialized Class {}".format(self.__class__.__name__))
+        super(People, self).__init__()
         self.username = username
 
     def __str__(self):
@@ -36,6 +37,7 @@ class Mum(People):
 
     def __init__(self, username, skills):
         print("Mum Initialized Class {}".format(self.__class__.__name__))
+        super(People, self).__init__()
         self.username = username
         self.skills = skills
 
@@ -65,20 +67,20 @@ class Androgyne(Dad, Mum):
 dad = Dad("daddy")
 dad.run("OK")
 print(dad)
+print()
 mum = Mum("mummy", ['play', 'humor'])
 mum.run("OK")
 print(mum)
+print()
 androgyne = Androgyne("andy")
 print(androgyne)
 # Multiple inheritance
 androgyne.run("OK")
 print(androgyne.__dict__)
-
+print()
 print(type(Dad))
 print(type(Mum))
-
-
-print("More complicated")
+print()
 
 
 class First:
@@ -103,7 +105,7 @@ class Fourth(Second, Third):
     def __init__(self):
         super(Second, self).__init__()
         super(Third, self).__init__()
-        print("that's it")
+        print("fourth")
 
 
 print(First())
