@@ -1,35 +1,21 @@
+class People:
+    def __new__(cls):
+        print("People Created Class {0}".format(cls.__name__))
+        # return super(Dad, cls).__new__(cls)
+        return object.__new__(cls)
 
-class MetaPeople(type):
-    def __call__(cls, *args, **kwargs):
-        print("MetaPeople Call Class {}".format(cls.__name__))
-        return type.__call__(cls, *args, **kwargs)
+    def __init__(self):
+        print("Dad Initialized Class {}".format(self.__class__.__name__))
 
-    def __new__(mcs, *args, **kwargs):
-        print("MetaPeople Created Class {}".format(mcs.__name__))
-        # return super(MetaPeople, mcs).__new__(mcs, *args, **kwargs)
-        return type.__new__(mcs, *args, **kwargs)
+    def __str__(self):
+        return "str: People"
 
-    def __init__(cls, *args, **kwargs):
-        print("MetaPeople Initialized Class {}".format(cls.__name__))
-        type.__init__(cls, *args, **kwargs)
-
-
-class SubMetaPeople(MetaPeople):
-    def __call__(cls, *args, **kwargs):
-        print("SubMetaPeople Call Class {}".format(cls.__name__))
-        return type.__call__(cls, *args, **kwargs)
-
-    def __new__(mcs, *args, **kwargs):
-        print("SubMetaPeople Created Class {}".format(mcs.__name__))
-        # return super(SubMetaPeople, mcs).__new__(mcs, *args, **kwargs)
-        return type.__new__(mcs, *args, **kwargs)
-
-    def __init__(cls, *args, **kwargs):
-        print("SubMetaPeople Initialized Class {}".format(cls.__name__))
-        type.__init__(cls, *args, **kwargs)
+    @staticmethod
+    def run(value):
+        print("People run " + str(value))
 
 
-class Dad(metaclass=MetaPeople):
+class Dad(People):
     def __new__(cls, username):
         print("Dad Created Class {0}, username: {1}".format(cls.__name__, username))
         # return super(Dad, cls).__new__(cls)
@@ -42,12 +28,8 @@ class Dad(metaclass=MetaPeople):
     def __str__(self):
         return self.username
 
-    @staticmethod
-    def run(value):
-        print("Dad run " + str(value))
 
-
-class Mum(metaclass=SubMetaPeople):
+class Mum(People):
     def __new__(cls, username, skills):
         print("Mum Created Class {0}, username: {1}".format(cls.__name__, username))
         return object.__new__(cls)
@@ -94,3 +76,37 @@ print(androgyne.__dict__)
 
 print(type(Dad))
 print(type(Mum))
+
+
+print("More complicated")
+
+
+class First:
+    def __init__(self):
+        print("first")
+
+
+class Second(First):
+    def __init__(self):
+        super(First, self).__init__()
+        print("second")
+
+
+class Third(First):
+    # Cannot inhertited of Second
+    def __init__(self):
+        super(First, self).__init__()
+        print("third")
+
+
+class Fourth(Second, Third):
+    def __init__(self):
+        super(Second, self).__init__()
+        super(Third, self).__init__()
+        print("that's it")
+
+
+print(First())
+print(Second())
+print(Third())
+print(Fourth())
