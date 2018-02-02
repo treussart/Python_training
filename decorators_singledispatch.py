@@ -1,4 +1,4 @@
-from functools import singledispatch, wraps
+from functools import singledispatch, wraps, partial
 
 
 def power_lower(func):
@@ -22,6 +22,15 @@ def power_trim(nbr):
             return func(*args, **kwargs)[:nbr]
         return wrapper
     return power_trim_func
+
+
+def power_prefix(func=None, *, prefix=''):
+    if func is None:
+        return partial(power_prefix, prefix=prefix)
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        return prefix + func(*args, **kwargs)
+    return wrapper
 
 
 @singledispatch
@@ -49,8 +58,9 @@ def _(value):
 
 
 @test.register(list)
-@power_trim(6)
+@power_trim(10)
 @power_space
+@power_prefix(prefix="***")
 def _(value):
     return ''.join(value)
 
