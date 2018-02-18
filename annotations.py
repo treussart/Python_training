@@ -24,3 +24,20 @@
 >>> test.__annotations__
 {'arg1': <class 'str'>, 'arg2': 'not important', 'arg3': <class 'int'>}
 """
+
+
+# With Pycharm :
+class C:
+    foo = None  # type: List[str]
+
+
+def f(param: int) -> int:
+    """
+    :type param: int
+    """
+    a1 = 5
+    """:type : int"""
+
+    return param.bit_length()
+
+a = f()
