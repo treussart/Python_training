@@ -1,7 +1,7 @@
 class People:
     def __new__(cls, **kwargs):
         print("People Created Class {0}".format(cls.__name__))
-        return super(People, cls).__new__(cls)
+        return super().__new__(cls)
 
     def __init__(self, **kwargs):
         print("Dad Initialized Class {}".format(self.__class__.__name__))
@@ -17,11 +17,11 @@ class People:
 class Dad(People):
     def __new__(cls, **kwargs):
         print("Dad Created Class {0}, username: {1}".format(cls.__name__, kwargs.get('username')))
-        return super(Dad, cls).__new__(cls)
+        return super().__new__(cls)
 
     def __init__(self, **kwargs):
         print("Dad Initialized Class {}".format(self.__class__.__name__))
-        super(Dad, self).__init__()
+        super().__init__()
         self.username = kwargs.get('username')
 
     def __str__(self):
@@ -31,11 +31,11 @@ class Dad(People):
 class Mum(People):
     def __new__(cls, **kwargs):
         print("Mum Created Class {0}, username: {1}".format(cls.__name__, kwargs.get('username')))
-        return super(Mum, cls).__new__(cls)
+        return super().__new__(cls)
 
     def __init__(self, **kwargs):
         print("Mum Initialized Class {}".format(self.__class__.__name__))
-        super(Mum, self).__init__()
+        super().__init__()
         self.username = kwargs.get('username')
         self.skills = kwargs.get('skills')
 
@@ -50,7 +50,7 @@ class Mum(People):
 class Androgyne(Dad, Mum):
     def __init__(self, **kwargs):
         print("Androgyne Initialized Class {}".format(self.__class__.__name__))
-        super(Androgyne, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def __str__(self):
         return self.username + str(self.skills)
@@ -82,26 +82,26 @@ class First:
 
 class Second(First):
     def __init__(self):
-        super(Second, self).__init__()
+        super().__init__()
         print("second")
 
 
 class Third(First):
     # Cannot inhertited of Second (because of Fourth)
     def __init__(self):
-        super(Third, self).__init__()
+        super().__init__()
         print("third")
 
 
 class Fourth(Third, Second):
     def __init__(self):
-        super(Fourth, self).__init__()
+        super().__init__()
         print("fourth")
 
 
 class Extra(Fourth): # Same as: class Extra(Fourth, Third, Second, First)
     def __init__(self):
-        super(Extra, self).__init__()
+        super().__init__()
         print("extra")
 
 
@@ -128,20 +128,20 @@ class First1(object):
 class Second2(First1):
     def __init__(self, called_by=''):
         print("second prologue, called_by: %s" % called_by)
-        super(Second2, self).__init__(called_by='Second'+called_by)
+        super().__init__(called_by='Second'+called_by)
         print("second epilogue, called_by: %s" % called_by)
 
 
 class Third3(First1):
     def __init__(self, called_by=''):
         print("third prologue, called_by: %s" % called_by)
-        super(Third3, self).__init__(called_by='Third'+called_by)
+        super().__init__(called_by='Third'+called_by)
         print("third epilogue, called_by: %s" % called_by)
 
 
 class Fourth4(Second2, Third3):
     def __init__(self):
-        super(Fourth4, self).__init__(called_by='Fourth')
+        super().__init__(called_by='Fourth')
         print("that's it")
 
 
